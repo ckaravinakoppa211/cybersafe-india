@@ -1,0 +1,1561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CyberSafe India</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+header{
+    background:linear-gradient(135deg,#3157d5,#6d5dfc);
+    color:white;
+    padding:30px 20px;
+    border-radius:0 0 25px 25px;
+}
+
+header h1{
+    margin:0;
+    font-size:30px;
+}
+
+header p{
+    margin-top:8px;
+}
+
+.container{
+    max-width:750px;
+    margin:auto;
+    padding:16px;
+}
+
+nav{
+    display:flex;
+    gap:8px;
+    margin-top:-20px;
+}
+
+nav button{
+    flex:1;
+    padding:14px 5px;
+    border:none;
+    border-radius:14px;
+    background:white;
+    color:#3157d5;
+    font-weight:bold;
+    box-shadow:0 3px 12px #0002;
+}
+
+nav button.active{
+    background:#3157d5;
+    color:white;
+}
+
+.card{
+    background:white;
+    margin:15px 0;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 3px 15px #0001;
+}
+
+h2{
+    margin-top:0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+button{
+    cursor:pointer;
+}
+
+.main-btn{
+    border:none;
+    padding:15px;
+    border-radius:13px;
+    background:#3157d5;
+    color:white;
+    font-weight:bold;
+}
+
+.secondary{
+    background:#eef1ff;
+    color:#3157d5;
+}
+
+.lesson{
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:14px;
+    margin:10px 0;
+    cursor:pointer;
+}
+
+.lesson:hover{
+    background:#f3f5ff;
+}
+
+.warning{
+    background:#fff4e5;
+    border-left:5px solid #f79009;
+    padding:14px;
+    border-radius:8px;
+}
+
+.safe{
+    background:#eafaf1;
+    border-left:5px solid #12b76a;
+    padding:14px;
+    border-radius:8px;
+}
+
+.option{
+    width:100%;
+    text-align:left;
+    padding:14px;
+    margin:7px 0;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:#f8f9fc;
+}
+
+.correct{
+    background:#dff7e8;
+}
+
+.wrong{
+    background:#ffe5e2;
+}
+
+.hidden{
+    display:none;
+}
+
+.back{
+    border:none;
+    background:none;
+    color:#3157d5;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
+}
+
+footer{
+    text-align:center;
+    color:#777;
+    padding:25px;
+    font-size:13px;
+}
+
+@media(max-width:500px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<h1>🛡️ CyberSafe India</h1>
+<p>Learn how to stay safe from online scams and digital fraud.</p>
+</div>
+</header>
+
+<div class="container">
+
+<nav>
+<button class="active" onclick="showPage('home',this)">Home</button>
+<button onclick="showPage('library',this)">Scam Library</button>
+<button onclick="showPage('help',this)">Get Help</button>
+</nav>
+
+<!-- HOME -->
+
+<section id="home">
+
+<div class="card">
+
+<h2>Choose Your Learning Track</h2>
+
+<p>
+Short lessons, real-life examples and quick quizzes.
+</p>
+
+<div class="grid">
+
+<button class="main-btn"
+onclick="openTrack('student')">
+🎓 Student Track
+</button>
+
+<button class="main-btn secondary"
+onclick="openTrack('senior')">
+👵 Senior Citizen Track
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>🛡️ Quick Safety Rules</h2>
+
+<ul>
+<li>Never share your OTP or UPI PIN.</li>
+<li>Do not click suspicious links.</li>
+<li>Verify unexpected payment requests.</li>
+<li>Never share your password.</li>
+<li>Use official websites and phone numbers.</li>
+</ul>
+
+</div>
+
+</section>
+
+
+<!-- TRACK -->
+
+<section id="track" class="hidden">
+
+<button class="back" onclick="goHome()">← Back</button>
+
+<div class="card">
+
+<h2 id="trackTitle"></h2>
+
+<p id="trackDescription"></p>
+
+<div id="lessonList"></div>
+
+</div>
+
+</section>
+
+
+<!-- LESSON -->
+
+<section id="lesson" class="hidden">
+
+<button class="back" onclick="goTrack()">← Back to lessons</button>
+
+<div class="card">
+
+<h2 id="lessonTitle"></h2>
+
+<div id="lessonContent"></div>
+
+<button class="main-btn"
+onclick="startQuiz()">
+Take Quick Quiz →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section id="quiz" class="hidden">
+
+<button class="back" onclick="goLesson()">← Back</button>
+
+<div class="card">
+
+<h2>🧠 Quick Quiz</h2>
+
+<h3 id="question"></h3>
+
+<div id="answers"></div>
+
+<div id="quizResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- LIBRARY -->
+
+<section id="library" class="hidden">
+
+<div class="card">
+
+<h2>🔎 Scam Library</h2>
+
+<p>Learn common scams and their warning signs.</p>
+
+<input
+id="search"
+placeholder="Search scams..."
+oninput="searchScams()">
+
+<div id="scamList"></div>
+
+</div>
+
+</section>
+
+
+<!-- HELP -->
+
+<section id="help" class="hidden">
+
+<div class="card">
+
+<h2>🚨 Need Help?</h2>
+
+<p>
+If you think you have experienced cyber financial fraud in India:
+</p>
+
+<ol>
+<li>Contact your bank immediately.</li>
+<li>Save messages and transaction details.</li>
+<li>Call <b>1930</b> for cyber financial fraud.</li>
+<li>Report the incident through the official Cyber Crime Reporting Portal.</li>
+</ol>
+
+<div class="warning">
+
+<b>Remember:</b><br>
+Never give your OTP, UPI PIN or password to someone who contacts you unexpectedly.
+
+</div>
+
+<br>
+
+<button class="main-btn"
+onclick="window.open('https://www.cybercrime.gov.in/','_blank')">
+
+Open Cyber Crime Portal
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<footer>
+CyberSafe India • Cyber Safety Awareness
+</footer>
+
+
+<script>
+
+const scamData = [
+
+{
+name:"🎣 Phishing",
+description:"Fake messages or websites that try to steal your personal information.",
+signs:[
+"Suspicious links",
+"Urgent messages",
+"Requests for passwords or OTP"
+],
+tip:"Open the official website yourself instead of clicking an unexpected link."
+},
+
+{
+name:"💳 UPI Fraud",
+description:"Scams that trick people into sending money or revealing UPI information.",
+signs:[
+"Unexpected payment request",
+"Someone asks for your UPI PIN",
+"Pressure to pay immediately"
+],
+tip:"You do not need your UPI PIN to receive money."
+},
+
+{
+name:"🎁 Fake Lottery",
+description:"Fake prize messages asking for money or personal information.",
+signs:[
+"You never entered the lottery",
+"Processing fee is demanded",
+"OTP or bank details requested"
+],
+tip:"Never pay money to claim an unexpected prize."
+},
+
+{
+name:"🏦 Fake KYC",
+description:"Fake bank or service messages asking you to update KYC.",
+signs:[
+"Account-blocking threats",
+"Suspicious KYC link",
+"OTP request"
+],
+tip:"Contact your bank through its official website or phone number."
+},
+
+{
+name:"💼 Fake Job Offer",
+description:"Fraudulent job offers that request fees or sensitive information.",
+signs:[
+"Guaranteed income",
+"Registration fee",
+"Suspicious recruiter"
+],
+tip:"Verify the job through the company's official website."
+},
+
+{
+name:"📱 Social Media Scam",
+description:"Fake profiles or hacked accounts used to request money.",
+signs:[
+"Urgent money request",
+"Different payment account",
+"Refusal to verify identity"
+],
+tip:"Call the person using a known phone number before sending money."
+}
+
+];
+
+
+const lessons={
+
+student:[
+
+{
+title:"🎣 Phishing",
+text:"Phishing messages pretend to come from banks, colleges, courier companies or social media services.",
+example:"Your account will be closed today. Click this link to verify.",
+question:"What should you do?",
+answers:[
+"Click the link immediately",
+"Open the official website yourself",
+"Send your password"
+],
+correct:1
+},
+
+{
+title:"💳 UPI Fraud",
+text:"Never share your UPI PIN or OTP. Be careful with unexpected payment requests.",
+example:"Someone says they are sending you a refund and asks for your UPI PIN.",
+question:"What should you do?",
+answers:[
+"Give your UPI PIN",
+"Verify through the official service",
+"Give your OTP"
+],
+correct:1
+},
+
+{
+title:"🎁 Fake Lottery",
+text:"Scammers may claim that you won a prize even though you never entered a competition.",
+example:"Congratulations! You won ₹50,000. Pay ₹2,000 processing fee.",
+question:"What is the warning sign?",
+answers:[
+"Unexpected prize and fee",
+"Normal school message",
+"Known teacher message"
+],
+correct:0
+}
+
+],
+
+senior:[
+
+{
+title:"🎣 Phishing Messages",
+text:"Fake messages can look like they came from your bank, courier company or government service.",
+example:"Your bank KYC expires today. Click this link.",
+question:"What is safest?",
+answers:[
+"Click the link",
+"Share OTP",
+"Contact the bank through an official number"
+],
+correct:2
+},
+
+{
+title:"💳 UPI Safety",
+text:"To receive money, you normally do not need to enter your UPI PIN.",
+example:"A caller says they will send you a refund and asks for your PIN.",
+question:"What should you do?",
+answers:[
+"Give the PIN",
+"Stop and verify",
+"Give your ATM PIN"
+],
+correct:1
+},
+
+{
+title:"🎁 Fake Prize",
+text:"Unexpected lottery and prize messages are common scam warning signs.",
+example:"You won a car. Pay tax to receive your prize.",
+question:"What is suspicious?",
+answers:[
+"You never entered the lottery",
+"The message has your name",
+"It uses English"
+],
+correct:0
+}
+
+]
+
+};
+
+
+let currentTrack="";
+let currentLesson=null;
+
+
+function hideAll(){
+
+document.getElementById("home").classList.add("hidden");
+document.getElementById("track").classList.add("hidden");
+document.getElementById("lesson").classList.add("hidden");
+document.getElementById("quiz").classList.add("hidden");
+document.getElementById("library").classList.add("hidden");
+document.getElementById("help").classList.add("hidden");
+
+}
+
+
+function showPage(page,button){
+
+hideAll();
+
+document.getElementById(page).classList.remove("hidden");
+
+document.querySelectorAll("nav button")
+.forEach(b=>b.classList.remove("active"));
+
+button.classList.add("active");
+
+if(page==="library"){
+showScams();
+}
+
+}
+
+
+function goHome(){
+
+hideAll();
+
+document.getElementById("home").classList.remove("hidden");
+
+}
+
+
+function openTrack(track){
+
+currentTrack=track;
+
+hideAll();
+
+document.getElementById("track").classList.remove("hidden");
+
+if(track==="student"){
+
+document.getElementById("trackTitle").innerText=
+"🎓 Student Cyber Safety";
+
+document.getElementById("trackDescription").innerText=
+"Learn how to stay safe while using social media, UPI, online shopping and the internet.";
+
+}else{
+
+document.getElementById("trackTitle").innerText=
+"👵 Senior Citizen Cyber Safety";
+
+document.getElementById("trackDescription").innerText=
+"Simple lessons to help you recognise and avoid common online scams.";
+
+}
+
+
+let list=document.getElementById("lessonList");
+
+list.innerHTML="";
+
+lessons[track].forEach((lesson,index)=>{
+
+let div=document.createElement("div");
+
+div.className="lesson";
+
+div.innerHTML=
+"<b>"+(index+1)+". "+lesson.title+
+"</b><br><small>Lesson + Quick Quiz</small>";
+
+div.onclick=()=>openLesson(index);
+
+list.appendChild(div);
+
+});
+
+}
+
+
+function openLesson(index){
+
+currentLesson=lessons[currentTrack][index];
+
+hideAll();
+
+document.getElementById("lesson").classList.remove("hidden");
+
+document.getElementById("lessonTitle").innerText=
+currentLesson.title;
+
+let scam=scamData.find(
+s=>currentLesson.title.includes(s.name.substring(2))
+);
+
+document.getElementById("lessonContent").innerHTML=
+
+"<p>"+currentLesson.text+"</p>"+
+
+"<div class='warning'><b>Example:</b><br>"+
+currentLesson.example+
+"</div><br>"+
+
+"<div class='safe'><b>Safety Tip:</b><br>"+
+(scam ? scam.tip : "")+
+"</div>";
+
+}
+
+
+function startQuiz(){
+
+hideAll();
+
+document.getElementById("quiz").classList.remove("hidden");
+
+document.getElementById("question").innerText=
+currentLesson.question;
+
+let answers=document.getElementById("answers");
+
+answers.innerHTML="";
+
+currentLesson.answers.forEach((answer,index)=>{
+
+let button=document.createElement("button");
+
+button.className="option";
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CyberSafe India</title>
+
+<style>
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f4f7fb;
+    color:#172033;
+}
+
+header{
+    background:linear-gradient(135deg,#3157d5,#6d5dfc);
+    color:white;
+    padding:30px 20px;
+    border-radius:0 0 25px 25px;
+}
+
+header h1{
+    margin:0;
+    font-size:30px;
+}
+
+header p{
+    margin-top:8px;
+}
+
+.container{
+    max-width:750px;
+    margin:auto;
+    padding:16px;
+}
+
+nav{
+    display:flex;
+    gap:8px;
+    margin-top:-20px;
+}
+
+nav button{
+    flex:1;
+    padding:14px 5px;
+    border:none;
+    border-radius:14px;
+    background:white;
+    color:#3157d5;
+    font-weight:bold;
+    box-shadow:0 3px 12px #0002;
+}
+
+nav button.active{
+    background:#3157d5;
+    color:white;
+}
+
+.card{
+    background:white;
+    margin:15px 0;
+    padding:20px;
+    border-radius:18px;
+    box-shadow:0 3px 15px #0001;
+}
+
+h2{
+    margin-top:0;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+button{
+    cursor:pointer;
+}
+
+.main-btn{
+    border:none;
+    padding:15px;
+    border-radius:13px;
+    background:#3157d5;
+    color:white;
+    font-weight:bold;
+}
+
+.secondary{
+    background:#eef1ff;
+    color:#3157d5;
+}
+
+.lesson{
+    border:1px solid #ddd;
+    padding:15px;
+    border-radius:14px;
+    margin:10px 0;
+    cursor:pointer;
+}
+
+.lesson:hover{
+    background:#f3f5ff;
+}
+
+.warning{
+    background:#fff4e5;
+    border-left:5px solid #f79009;
+    padding:14px;
+    border-radius:8px;
+}
+
+.safe{
+    background:#eafaf1;
+    border-left:5px solid #12b76a;
+    padding:14px;
+    border-radius:8px;
+}
+
+.option{
+    width:100%;
+    text-align:left;
+    padding:14px;
+    margin:7px 0;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:#f8f9fc;
+}
+
+.correct{
+    background:#dff7e8;
+}
+
+.wrong{
+    background:#ffe5e2;
+}
+
+.hidden{
+    display:none;
+}
+
+.back{
+    border:none;
+    background:none;
+    color:#3157d5;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    font-size:16px;
+}
+
+footer{
+    text-align:center;
+    color:#777;
+    padding:25px;
+    font-size:13px;
+}
+
+@media(max-width:500px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="container">
+<h1>🛡️ CyberSafe India</h1>
+<p>Learn how to stay safe from online scams and digital fraud.</p>
+</div>
+</header>
+
+<div class="container">
+
+<nav>
+<button class="active" onclick="showPage('home',this)">Home</button>
+<button onclick="showPage('library',this)">Scam Library</button>
+<button onclick="showPage('help',this)">Get Help</button>
+</nav>
+
+<!-- HOME -->
+
+<section id="home">
+
+<div class="card">
+
+<h2>Choose Your Learning Track</h2>
+
+<p>
+Short lessons, real-life examples and quick quizzes.
+</p>
+
+<div class="grid">
+
+<button class="main-btn"
+onclick="openTrack('student')">
+🎓 Student Track
+</button>
+
+<button class="main-btn secondary"
+onclick="openTrack('senior')">
+👵 Senior Citizen Track
+</button>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>🛡️ Quick Safety Rules</h2>
+
+<ul>
+<li>Never share your OTP or UPI PIN.</li>
+<li>Do not click suspicious links.</li>
+<li>Verify unexpected payment requests.</li>
+<li>Never share your password.</li>
+<li>Use official websites and phone numbers.</li>
+</ul>
+
+</div>
+
+</section>
+
+
+<!-- TRACK -->
+
+<section id="track" class="hidden">
+
+<button class="back" onclick="goHome()">← Back</button>
+
+<div class="card">
+
+<h2 id="trackTitle"></h2>
+
+<p id="trackDescription"></p>
+
+<div id="lessonList"></div>
+
+</div>
+
+</section>
+
+
+<!-- LESSON -->
+
+<section id="lesson" class="hidden">
+
+<button class="back" onclick="goTrack()">← Back to lessons</button>
+
+<div class="card">
+
+<h2 id="lessonTitle"></h2>
+
+<div id="lessonContent"></div>
+
+<button class="main-btn"
+onclick="startQuiz()">
+Take Quick Quiz →
+</button>
+
+</div>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section id="quiz" class="hidden">
+
+<button class="back" onclick="goLesson()">← Back</button>
+
+<div class="card">
+
+<h2>🧠 Quick Quiz</h2>
+
+<h3 id="question"></h3>
+
+<div id="answers"></div>
+
+<div id="quizResult"></div>
+
+</div>
+
+</section>
+
+
+<!-- LIBRARY -->
+
+<section id="library" class="hidden">
+
+<div class="card">
+
+<h2>🔎 Scam Library</h2>
+
+<p>Learn common scams and their warning signs.</p>
+
+<input
+id="search"
+placeholder="Search scams..."
+oninput="searchScams()">
+
+<div id="scamList"></div>
+
+</div>
+
+</section>
+
+
+<!-- HELP -->
+
+<section id="help" class="hidden">
+
+<div class="card">
+
+<h2>🚨 Need Help?</h2>
+
+<p>
+If you think you have experienced cyber financial fraud in India:
+</p>
+
+<ol>
+<li>Contact your bank immediately.</li>
+<li>Save messages and transaction details.</li>
+<li>Call <b>1930</b> for cyber financial fraud.</li>
+<li>Report the incident through the official Cyber Crime Reporting Portal.</li>
+</ol>
+
+<div class="warning">
+
+<b>Remember:</b><br>
+Never give your OTP, UPI PIN or password to someone who contacts you unexpectedly.
+
+</div>
+
+<br>
+
+<button class="main-btn"
+onclick="window.open('https://www.cybercrime.gov.in/','_blank')">
+
+Open Cyber Crime Portal
+
+</button>
+
+</div>
+
+</section>
+
+</div>
+
+<footer>
+CyberSafe India • Cyber Safety Awareness
+</footer>
+
+
+<script>
+
+const scamData = [
+
+{
+name:"🎣 Phishing",
+description:"Fake messages or websites that try to steal your personal information.",
+signs:[
+"Suspicious links",
+"Urgent messages",
+"Requests for passwords or OTP"
+],
+tip:"Open the official website yourself instead of clicking an unexpected link."
+},
+
+{
+name:"💳 UPI Fraud",
+description:"Scams that trick people into sending money or revealing UPI information.",
+signs:[
+"Unexpected payment request",
+"Someone asks for your UPI PIN",
+"Pressure to pay immediately"
+],
+tip:"You do not need your UPI PIN to receive money."
+},
+
+{
+name:"🎁 Fake Lottery",
+description:"Fake prize messages asking for money or personal information.",
+signs:[
+"You never entered the lottery",
+"Processing fee is demanded",
+"OTP or bank details requested"
+],
+tip:"Never pay money to claim an unexpected prize."
+},
+
+{
+name:"🏦 Fake KYC",
+description:"Fake bank or service messages asking you to update KYC.",
+signs:[
+"Account-blocking threats",
+"Suspicious KYC link",
+"OTP request"
+],
+tip:"Contact your bank through its official website or phone number."
+},
+
+{
+name:"💼 Fake Job Offer",
+description:"Fraudulent job offers that request fees or sensitive information.",
+signs:[
+"Guaranteed income",
+"Registration fee",
+"Suspicious recruiter"
+],
+tip:"Verify the job through the company's official website."
+},
+
+{
+name:"📱 Social Media Scam",
+description:"Fake profiles or hacked accounts used to request money.",
+signs:[
+"Urgent money request",
+"Different payment account",
+"Refusal to verify identity"
+],
+tip:"Call the person using a known phone number before sending money."
+}
+
+];
+
+
+const lessons={
+
+student:[
+
+{
+title:"🎣 Phishing",
+text:"Phishing messages pretend to come from banks, colleges, courier companies or social media services.",
+example:"Your account will be closed today. Click this link to verify.",
+question:"What should you do?",
+answers:[
+"Click the link immediately",
+"Open the official website yourself",
+"Send your password"
+],
+correct:1
+},
+
+{
+title:"💳 UPI Fraud",
+text:"Never share your UPI PIN or OTP. Be careful with unexpected payment requests.",
+example:"Someone says they are sending you a refund and asks for your UPI PIN.",
+question:"What should you do?",
+answers:[
+"Give your UPI PIN",
+"Verify through the official service",
+"Give your OTP"
+],
+correct:1
+},
+
+{
+title:"🎁 Fake Lottery",
+text:"Scammers may claim that you won a prize even though you never entered a competition.",
+example:"Congratulations! You won ₹50,000. Pay ₹2,000 processing fee.",
+question:"What is the warning sign?",
+answers:[
+"Unexpected prize and fee",
+"Normal school message",
+"Known teacher message"
+],
+correct:0
+}
+
+],
+
+senior:[
+
+{
+title:"🎣 Phishing Messages",
+text:"Fake messages can look like they came from your bank, courier company or government service.",
+example:"Your bank KYC expires today. Click this link.",
+question:"What is safest?",
+answers:[
+"Click the link",
+"Share OTP",
+"Contact the bank through an official number"
+],
+correct:2
+},
+
+{
+title:"💳 UPI Safety",
+text:"To receive money, you normally do not need to enter your UPI PIN.",
+example:"A caller says they will send you a refund and asks for your PIN.",
+question:"What should you do?",
+answers:[
+"Give the PIN",
+"Stop and verify",
+"Give your ATM PIN"
+],
+correct:1
+},
+
+{
+title:"🎁 Fake Prize",
+text:"Unexpected lottery and prize messages are common scam warning signs.",
+example:"You won a car. Pay tax to receive your prize.",
+question:"What is suspicious?",
+answers:[
+"You never entered the lottery",
+"The message has your name",
+"It uses English"
+],
+correct:0
+}
+
+]
+
+};
+
+
+let currentTrack="";
+let currentLesson=null;
+
+
+function hideAll(){
+
+document.getElementById("home").classList.add("hidden");
+document.getElementById("track").classList.add("hidden");
+document.getElementById("lesson").classList.add("hidden");
+document.getElementById("quiz").classList.add("hidden");
+document.getElementById("library").classList.add("hidden");
+document.getElementById("help").classList.add("hidden");
+
+}
+
+
+function showPage(page,button){
+
+hideAll();
+
+document.getElementById(page).classList.remove("hidden");
+
+document.querySelectorAll("nav button")
+.forEach(b=>b.classList.remove("active"));
+
+button.classList.add("active");
+
+if(page==="library"){
+showScams();
+}
+
+}
+
+
+function goHome(){
+
+hideAll();
+
+document.getElementById("home").classList.remove("hidden");
+
+}
+
+
+function openTrack(track){
+
+currentTrack=track;
+
+hideAll();
+
+document.getElementById("track").classList.remove("hidden");
+
+if(track==="student"){
+
+document.getElementById("trackTitle").innerText=
+"🎓 Student Cyber Safety";
+
+document.getElementById("trackDescription").innerText=
+"Learn how to stay safe while using social media, UPI, online shopping and the internet.";
+
+}else{
+
+document.getElementById("trackTitle").innerText=
+"👵 Senior Citizen Cyber Safety";
+
+document.getElementById("trackDescription").innerText=
+"Simple lessons to help you recognise and avoid common online scams.";
+
+}
+
+
+let list=document.getElementById("lessonList");
+
+list.innerHTML="";
+
+lessons[track].forEach((lesson,index)=>{
+
+let div=document.createElement("div");
+
+div.className="lesson";
+
+div.innerHTML=
+"<b>"+(index+1)+". "+lesson.title+
+"</b><br><small>Lesson + Quick Quiz</small>";
+
+div.onclick=()=>openLesson(index);
+
+list.appendChild(div);
+
+});
+
+}
+
+
+function openLesson(index){
+
+currentLesson=lessons[currentTrack][index];
+
+hideAll();
+
+document.getElementById("lesson").classList.remove("hidden");
+
+document.getElementById("lessonTitle").innerText=
+currentLesson.title;
+
+let scam=scamData.find(
+s=>currentLesson.title.includes(s.name.substring(2))
+);
+
+document.getElementById("lessonContent").innerHTML=
+
+"<p>"+currentLesson.text+"</p>"+
+
+"<div class='warning'><b>Example:</b><br>"+
+currentLesson.example+
+"</div><br>"+
+
+"<div class='safe'><b>Safety Tip:</b><br>"+
+(scam ? scam.tip : "")+
+"</div>";
+
+}
+
+
+function startQuiz(){
+
+hideAll();
+
+document.getElementById("quiz").classList.remove("hidden");
+
+document.getElementById("question").innerText=
+currentLesson.question;
+
+let answers=document.getElementById("answers");
+
+answers.innerHTML="";
+
+currentLesson.answers.forEach((answer,index)=>{
+
+let button=document.createElement("button");
+
+button.className="option";
+
+button.innerText=
+String.fromCharCode(65+index)+". "+answer;
+
+button.onclick=()=>checkAnswer(index,button);
+
+answers.appendChild(button);
+
+});
+
+document.getElementById("quizResult").innerHTML="";
+
+}
+
+
+function checkAnswer(index,button){
+
+let buttons=document.querySelectorAll(".option");
+
+buttons.forEach(b=>b.disabled=true);
+
+if(index===currentLesson.correct){
+
+button.classList.add("correct");
+
+document.getElementById("quizResult").innerHTML=
+"<div class='safe'><b>✅ Correct!</b><br>Good cyber-safety practice.</div>";
+
+}else{
+
+button.classList.add("wrong");
+
+buttons[currentLesson.correct].classList.add("correct");
+
+document.getElementById("quizResult").innerHTML=
+"<div class='warning'><b>❌ Not quite.</b><br>The highlighted answer is the safer choice.</div>";
+
+}
+
+}
+
+
+function goTrack(){
+
+openTrack(currentTrack);
+
+}
+
+
+function goLesson(){
+
+hideAll();
+
+document.getElementById("lesson").classList.remove("hidden");
+
+}
+
+
+function showScams(){
+
+let list=document.getElementById("scamList");
+
+list.innerHTML="";
+
+scamData.forEach(s=>{
+
+let div=document.createElement("div");
+
+div.className="lesson";
+
+div.innerHTML=
+
+"<h3>"+s.name+"</h3>"+
+
+"<p>"+s.description+"</p>"+
+
+"<b>Warning signs:</b>"+
+
+"<ul>"+
+
+s.signs.map(x=>"<li>"+x+"</li>").join("")+
+
+"</ul>"+
+
+"<div class='safe'><b>Safety Tip:</b> "+
+s.tip+
+"</div>";
+
+list.appendChild(div);
+
+});
+
+}
+
+
+function searchScams(){
+
+let search=
+document.getElementById("search")
+.value
+.toLowerCase();
+
+let list=document.getElementById("scamList");
+
+list.innerHTML="";
+
+scamData
+.filter(s=>
+(s.name+s.description+s.signs.join(""))
+.toLowerCase()
+.includes(search)
+)
+.forEach(s=>{
+
+let div=document.createElement("div");
+
+div.className="lesson";
+
+div.innerHTML=
+
+"<h3>"+s.name+"</h3>"+
+"<p>"+s.description+"</p>"+
+"<b>Warning signs:</b>"+
+"<ul>"+
+s.signs.map(x=>"<li>"+x+"</li>").join("")+
+"</ul>"+
+"<div class='safe'><b>Safety Tip:</b> "+
+s.tip+
+"</div>";
+
+list.appendChild(div);
+
+});
+
+}
+
+</script>
+
+</body>
+</html>button.innerText=
+String.fromCharCode(65+index)+". "+answer;
+
+button.onclick=()=>checkAnswer(index,button);
+
+answers.appendChild(button);
+
+});
+
+document.getElementById("quizResult").innerHTML="";
+
+}
+
+
+function checkAnswer(index,button){
+
+let buttons=document.querySelectorAll(".option");
+
+buttons.forEach(b=>b.disabled=true);
+
+if(index===currentLesson.correct){
+
+button.classList.add("correct");
+
+document.getElementById("quizResult").innerHTML=
+"<div class='safe'><b>✅ Correct!</b><br>Good cyber-safety practice.</div>";
+
+}else{
+
+button.classList.add("wrong");
+
+buttons[currentLesson.correct].classList.add("correct");
+
+document.getElementById("quizResult").innerHTML=
+"<div class='warning'><b>❌ Not quite.</b><br>The highlighted answer is the safer choice.</div>";
+
+}
+
+}
+
+
+function goTrack(){
+
+openTrack(currentTrack);
+
+}
+
+
+function goLesson(){
+
+hideAll();
+
+document.getElementById("lesson").classList.remove("hidden");
+
+}
+
+
+function showScams(){
+
+let list=document.getElementById("scamList");
+
+list.innerHTML="";
+
+scamData.forEach(s=>{
+
+let div=document.createElement("div");
+
+div.className="lesson";
+
