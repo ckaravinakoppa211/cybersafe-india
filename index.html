@@ -852,6 +852,74 @@ window.open(
 );
 
 }
+  
+function addFraudChecker() {
+  const button = document.createElement("button");
+  button.textContent = "🔍 Check for Fraud";
+  button.style.cssText =
+    "display:block;width:100%;padding:15px;margin:15px 0;" +
+    "background:#3157d5;color:white;border:0;border-radius:12px;" +
+    "font-size:17px;font-weight:bold;";
+
+  button.onclick = function () {
+    const message = prompt(
+      "Paste the suspicious SMS, message, or payment request here:"
+    );
+
+    if (!message || !message.trim()) return;
+
+    const text = message.toLowerCase();
+    const warnings = [];
+
+    const patterns = [
+      ["otp", "OTP requested"],
+      ["pin", "PIN requested"],
+      ["password", "Password requested"],
+      ["urgent", "Urgent or pressuring language"],
+      ["prize", "Unexpected prize or lottery"],
+      ["winner", "Unexpected winning claim"],
+      ["kyc", "KYC verification request"],
+      ["blocked", "Account-blocking threat"],
+      ["pay fee", "Fee requested"],
+      ["send money", "Request to send money"],
+      ["collect request", "Possible UPI collect request"],
+      ["remote access", "Remote-access request"]
+    ];
+
+    patterns.forEach(function (item) {
+      if (text.includes(item[0])) {
+        warnings.push("• " + item[1]);
+      }
+    });
+
+    let result;
+
+    if (warnings.length > 0) {
+      result =
+        "⚠️ WARNING SIGNS FOUND\n\n" +
+        warnings.join("\n") +
+        "\n\nDo not share OTPs, PINs, or passwords. " +
+        "Verify independently before paying.";
+    } else {
+      result =
+        "No listed warning words were found.\n\n" +
+        "This does NOT mean the message is safe. " +
+        "Scams can use other wording.";
+    }
+
+    alert(result);
+  };
+
+  const target =
+    document.querySelector(".container") ||
+    document.querySelector("main") ||
+    document.body;
+
+  target.prepend(button);
+}
+
+addFraudChecker();
+  
 
 </script>
 
